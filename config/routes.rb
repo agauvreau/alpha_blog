@@ -2,9 +2,12 @@ Rails.application.routes.draw do
  
  resources :articles
  
+ #we say except because new was already mapped with signup
+ resources :users, except: [:new]
+ 
   get 'home',  to: 'pages#home'
   get 'about', to: 'pages#about'
-
+  get 'signup', to: 'users#new'
  
  root 'pages#home'
  
