@@ -29,6 +29,9 @@ class UsersController < ApplicationController
     
     end
     
+    def show
+        @user = User.find(params[:id])
+    end
     
     private
     def user_params #this whitelists the parameters required to create a user. 
