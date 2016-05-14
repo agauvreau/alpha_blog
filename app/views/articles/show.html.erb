@@ -18,7 +18,7 @@
                         <%= link_to @article.user.username, user_path(@article.user)  %>
                     </li> <!-- the pluralize will make the counting more verbose: "one article, X articles" it will only show if the user has one or more article-->
                     <li><small><%= pluralize(@article.user.articles.count, "article") if @article.user.articles %></small></li>
-                </div>
+                </div> <!-- this section uses @article.user.articles.count (@article is added because we are in the article section, in the user section we only need@user.articles.count -->
             </div>
         </ul>
         <%end%>

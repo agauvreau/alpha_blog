@@ -2,7 +2,9 @@ class ArticlesController < ApplicationController
     before_action :set_article, only: [:edit, :update, :show, :destroy]
     
     def index
-        @articles = Article.all
+        #because of the will_paginate gem we don't use .all after Article. Refer to will_paginate gem docs.
+        #default amount of items per page : approxim 20 per_page: lets you choose.
+        @articles = Article.paginate(page: params[:page], per_page: 5)
     end
     
     

@@ -1,3 +1,12 @@
 <h1 align="center">This is the index page</h1>
 
+<!-- add a display for pagination -->
+ <div align="center">
+     <%= will_paginate %>
+ </div>
+
 <%= render 'article', obj: @articles %>
+<!-- add a display for pagination bottom part-->
+<div align="center">
+     <%= will_paginate %>
+ </div>

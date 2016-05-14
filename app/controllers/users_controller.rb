@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
     
     def index
-        @users = User.all
+        #to paginate we remove .all and add the paginate method
+        @users = User.paginate(page: params[:page], per_page: 5)
     end
     
     def new
@@ -35,7 +36,10 @@ class UsersController < ApplicationController
     end
     
     def show
+        
         @user = User.find(params[:id])
+        #provide an instance variable to allow pagination in the user's article show page
+        @user_articles = @user.articles.paginate(page: params[:page], per_page: 5)
     end
     
     private
