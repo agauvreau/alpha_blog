@@ -4,12 +4,24 @@ Rails.application.routes.draw do
  
  #we say except because new was already mapped with signup
  resources :users, except: [:new]
- 
+ #by typing home the routes manageger will send us to the home page in the pages views/pages folder.
   get 'home',  to: 'pages#home'
-  get 'about', to: 'pages#about'
-  get 'signup', to: 'users#new'
  
- root 'pages#home'
+  get 'about', to: 'pages#about'
+ 
+  get 'signup',     to: 'users#new'
+  
+  
+  # this is the login route
+   get 'login',      to: 'sessions#new'
+  
+  #this will post of login form
+  post 'login',     to: 'sessions#create'
+ 
+  #this will logout the user
+  delete 'logout',  to: 'sessions#destroy'
+ 
+  root 'pages#home'
  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

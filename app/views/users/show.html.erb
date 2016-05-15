@@ -10,6 +10,7 @@
     <div class="center">
         <%= will_paginate @user_articles %>
     </div>
+    <!-- the obj: allows us to re-use the same code instead of modifying it a bit with a dif. variable, instead of @user.article in the article form partial we only use obj -->
 <%= render 'articles/article', obj: @user.articles %>
 
 <div class="center">
