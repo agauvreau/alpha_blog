@@ -1,4 +1,5 @@
 class ArticlesController < ApplicationController
+    #this refers to the private method at the bottom of the file, prevents redundancy of code.
     before_action :set_article, only: [:edit, :update, :show, :destroy]
     
     def index

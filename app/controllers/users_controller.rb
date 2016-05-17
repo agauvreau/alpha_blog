@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
+    #before action avoids repeating yourself
     
+    before_action :set_user, only: [:edit, :update, :show]
     def index
         #to paginate we remove .all and add the paginate method
         @users = User.paginate(page: params[:page], per_page: 5)
@@ -21,11 +23,13 @@ class UsersController < ApplicationController
     end
     
     def edit
-    @user = User.find(params[:id])
+     #@user = User.find(params[:id]) this was replaced by the set_user before_action and private method.
+     
     end
     
     def update
-        @user = User.find(params[:id])
+         #@user = User.find(params[:id]) this was replaced by the set user set_user before_action and private method.
+         
         if @user.update(user_params)
             flash[:success] = "Your account was succesfully updated #{@user.username}"
             redirect_to articles_path
@@ -37,7 +41,8 @@ class UsersController < ApplicationController
     
     def show
         
-        @user = User.find(params[:id])
+        #@user = User.find(params[:id]) this was replaced by the set_user before_action and private method.
+        
         #provide an instance variable to allow pagination in the user's article show page
         @user_articles = @user.articles.paginate(page: params[:page], per_page: 5)
     end
@@ -46,4 +51,10 @@ class UsersController < ApplicationController
     def user_params #this whitelists the parameters required to create a user. 
        params.require(:user).permit(:username, :email, :password) 
     end
+    
+    #defining set_user to avoid repeating the same code too often for no reasons
+    def set_user
+        @user = User.find(params[:id])
+    end
+    
 end 
