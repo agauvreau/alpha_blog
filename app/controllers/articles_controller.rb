@@ -24,7 +24,7 @@ class ArticlesController < ApplicationController
     
     def create
         @article = Article.new(article_params)
-        @article.user = User.first
+        @article.user = current_user
         #this code catched any isssues with the saving action, ie: incorrect validation.
         if @article.save
             flash[:success] = "Article was successfully created"
