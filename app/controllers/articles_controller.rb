@@ -1,6 +1,10 @@
 class ArticlesController < ApplicationController
     #this refers to the private method at the bottom of the file, prevents redundancy of code.
     before_action :set_article, only: [:edit, :update, :show, :destroy]
+    # will make sure that only a logged user can do the actions. This prevents people from manually typing the address to edit the articles
+    before_action :require_user, except: [:index, :show]
+    # requires the user who created the article to allow its edition and deletion, this is linked with a private method below.
+    before_action :require_same_user, only: [:edit, :update, :destroy]
     
     def index
         #because of the will_paginate gem we don't use .all after Article. Refer to will_paginate gem docs.
@@ -66,6 +70,14 @@ class ArticlesController < ApplicationController
     
     def article_params
     params.require(:article).permit(:title, :description)
+    end
+    
+    def require_same_user
+        # != means not equal.
+        if current_user != @article.user
+            flash[:danger] = "You can only edit and delete your own articles"
+            redirect_to root_path
+        end
     end
     
 end

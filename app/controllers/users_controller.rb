@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
     #before action avoids repeating yourself
-    
     before_action :set_user, only: [:edit, :update, :show]
+    
+    before_action :require_same_user, only: [:edit, :update, :destroy]
+
     def index
         #to paginate we remove .all and add the paginate method
         @users = User.paginate(page: params[:page], per_page: 5)
@@ -55,6 +57,14 @@ class UsersController < ApplicationController
     #defining set_user to avoid repeating the same code too often for no reasons
     def set_user
         @user = User.find(params[:id])
+    end
+    
+    def require_same_user
+        # checks your id so as to avoid you editing someone else's account
+        if current_user != @user
+            flash[:danger] = "You can only edit your own account"
+            redirect_to root_path
+        end
     end
     
 end 
