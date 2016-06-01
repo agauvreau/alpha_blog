@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
-    has_many :articles
+    #destroys the article if the user who created it is destroyed
+    has_many :articles, dependent: :destroy
     
     #take the email and saves it in a lower case form to the database
     before_save {self.email = email.downcase}

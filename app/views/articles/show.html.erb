@@ -26,8 +26,9 @@
     <h4 class="center description"><strong>Description</strong></h4>
     <%= simple_format(@article.description) %>
     <!-- restrincting actions to appropriate users -->
-    <! -- this is the show page and I have a @article variable that I can use -->
-    <% if logged_in? && current_user == @article.user %>
+    <!-- this is the show page and I have a @article variable that I can use -->
+    <!-- check if you are logged in and/or an admin
+    <% if logged_in? && (current_user == @article.user || current_user.admin?) %>
     
     <div class="article-actions">
         <%= link_to "Edit this article", edit_article_path(@article), class: "btn btn-xs btn-primary" %>

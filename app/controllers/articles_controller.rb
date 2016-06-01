@@ -73,8 +73,8 @@ class ArticlesController < ApplicationController
     end
     
     def require_same_user
-        # != means not equal.
-        if current_user != @article.user
+        # != means not equal. also check that you are not an admin
+        if current_user != @article.user and !current_user.admin?
             flash[:danger] = "You can only edit and delete your own articles"
             redirect_to root_path
         end
