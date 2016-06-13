@@ -1,6 +1,7 @@
 class CategoriesController < ApplicationController
     def index
-        @categories = Category.all
+        # the paginate after Category is for the paginate gem, otherwise it would be ".all".
+        @categories = Category.paginate(page: params[:page], per_page: 5)
     end
     
     def new
