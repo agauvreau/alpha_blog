@@ -1,10 +1,17 @@
 require 'test_helper'
 
 class CreateCategoriesTest < ActionDispatch::IntegrationTest
+   def setup
+    #creates a user
+        @user = User.create(username:"John", email: "john@example.com", password: "password", admin: true)
+        
    
+   end
    #
    
    test "get new category form and create category" do 
+    #we use sign_in_as which is  in test_helper.rb. This method is available to all tests.
+    sign_in_as(@user, "password")
     get new_category_path
     assert_template 'categories/new'
     #there should be a difference of one once we created a new category (we've added one) 
@@ -19,6 +26,7 @@ class CreateCategoriesTest < ActionDispatch::IntegrationTest
    end
    
    test "invalid cate submission results in failure" do
+       sign_in_as(@user, "password")
    get new_category_path
     assert_template 'categories/new'
     #there should be no difference of one once we created a new category (invalid so no creation) 
