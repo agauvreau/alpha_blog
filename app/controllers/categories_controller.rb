@@ -1,4 +1,8 @@
 class CategoriesController < ApplicationController
+    #this before_action prevents non admin users from creating and deleting categories
+    before_action :require_admin, except: [:index, :show]
+    
+    
     def index
         # the paginate after Category is for the paginate gem, otherwise it would be ".all".
         @categories = Category.paginate(page: params[:page], per_page: 5)
@@ -31,5 +35,13 @@ class CategoriesController < ApplicationController
     def category_params
         params.require(:category).permit(:name)
     end
+    #is the user logged in? and a admin user.
+    def require_admin
+        if !logged_in? || (logged_in? and !current_user.admin?)
+            flash[:danger] = "Only admins can perfomed that action"
+            redirect_to categories_path
+        end
+    end
+    
 
 end
