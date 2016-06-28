@@ -69,7 +69,8 @@ class ArticlesController < ApplicationController
     
     
     def article_params
-    params.require(:article).permit(:title, :description)
+        # category_ids: in [] mean the params for category ids can me one or more category (ids)
+    params.require(:article).permit(:title, :description, category_ids: [])
     end
     
     def require_same_user

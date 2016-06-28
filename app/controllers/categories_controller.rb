@@ -28,6 +28,11 @@ class CategoriesController < ApplicationController
     
     
     def show
+        #this show action allows us to display each articles retlated to a specific category.
+        #this code also includes the will paginate per page info
+        
+        @category = Category.find(params[:id])
+        @category_articles = @category.articles.paginate(page: params[:page], per_page: 5)
     end
     
     
